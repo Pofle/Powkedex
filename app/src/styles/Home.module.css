@@ -1,7 +1,29 @@
-.title {
-  color: #ef5350;
-  font-size: 3rem;
-  text-align: center;
-  margin-top: 2rem;
-  font-family: 'Arial', sans-serif;
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #b30000;
+}
+
+.logoContainer {
+  aspect-ratio: 1 / 1;
+  width: 50%;
+  height: 10%;
+  max-width: 200px;
+  max-height: 90px;
+  position: relative;
+}
+.logo {
+  transition: transform 0.3s ease;
+  object-fit: contain;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
+.searchPlaceholder {
+  font-size: 1rem;
+  color: #333;
 }
