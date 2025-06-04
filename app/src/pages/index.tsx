@@ -1,5 +1,10 @@
+import styles from '../styles/Home.module.css';
+
 export default function Home() {
   return (
-    <h1>Powkedex</h1>
+    <main>
+        <h1 className={styles.title}>Powkedex</h1>
+    </main>
+    
   );
 }
