@@ -1,27 +1,36 @@
 /* export set tis type importable in the app : (import { PokemonListItem } from ...)*/
 export type PokemonDatas = {
-  /*id: number;  
-  order: number;*/
-  name: string;  
+  id: number;
+  name: string;
+  order: number;
+  weight: number;
 };
 
-
-export async function fetchPokemonList(limit : number): Promise<PokemonDatas[]> {
-    /*Fetch result in constante */
+export async function fetchPokemonList(limit: number): Promise<PokemonDatas[]> {
+  // fetch request result in constant
   const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}`);
-    /* Transform result in json object */
+  // transform result in json object
   const data = await res.json();
 
-  //return data.results.map((pokemon: { name: string }) => {
-  const pokemonDatas = data.results.map((pokemon: { name: string }) => {
-    return {
-      name: pokemon.name,
-    };
-  });
+  const pokemonDatas: PokemonDatas[] = await Promise.all(
+    data.results.map(async (pokemon: { name: string; url: string }) => {
+      // fetch result for each pokemon in constant
+      const resDetails = await fetch(pokemon.url);
+      // transform result in json object
+      const details = await resDetails.json();
+
+      return {
+        id: details.id,
+        name: details.name,
+        order: details.order,
+        weight: details.weight,
+      };
+    })
+  );
 
   // FOR TESTING
-  console.log('3 premiers Pokémon :', pokemonDatas.slice(0, 3));
+  console.log('3 premiers Pokémon détaillés :', pokemonDatas.slice(0, 3));
 
-   return pokemonDatas;
-
+  return pokemonDatas;
 }
+

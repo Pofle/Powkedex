@@ -32,7 +32,11 @@ export default function Home({pokemonDatas}: HomeProps) {
 
       <section className={styles.pokemonGrid}>
           {pokemonDatas.map((pokemon) => (
-            <PokemonCard name={pokemon.name} />
+             <PokemonCard
+                key={pokemon.id}
+                name={pokemon.name}
+                order={pokemon.order}
+                weight={pokemon.weight}/>
           ))}
         </section>
     </main>

@@ -9,13 +9,16 @@ type PokemonCardProps = {
 }; */
 
 function PokemonCard(props) {
+  const id = props.id;
   const name = props.name;
   const order = props.order;
+  const weight = props.weight
 
   return (
     <div className={styles.card} >
-      <p>#{order}</p>
       <h3>{name.charAt(0).toUpperCase() + name.slice(1)}</h3>
+      <p><strong>Order :</strong> {order}</p>
+      <p><strong>Poids :</strong> {weight}</p>
     </div>
   );
 }
