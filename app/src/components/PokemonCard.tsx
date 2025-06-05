@@ -1,19 +1,20 @@
 import React from 'react';
+import styles from '../styles/PokemonCard.module.css';
 /*TypeScript Type : describes expected datas in component
 FACULTATIVE 
 iF UNCOMMENTED => function PokemonCard(props: PokemonCardProps) 
 type PokemonCardProps = {
   name: string;
-  id: number;
+  order: number;
 }; */
 
 function PokemonCard(props) {
   const name = props.name;
-  const id = props.id;
+  const order = props.order;
 
   return (
     <div className={styles.card} >
-      <p>#{id}</p>
+      <p>#{order}</p>
       <h3>{name.charAt(0).toUpperCase() + name.slice(1)}</h3>
     </div>
   );
