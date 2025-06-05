@@ -1,36 +1,50 @@
-
 .header {
   display: flex;
-  align-items: center;
+  background-color: #dc2626; /* Tailwind red-600 */
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-lg */
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem; /* py-6 px-4 */
+  display: flex;
   justify-content: space-between;
-  background-color: #b30000;
+  align-items: center;
 }
 
 .logoContainer {
   aspect-ratio: 1 / 1;
-  width: 50%;
-  height: 10%;
+
   max-width: 200px;
   max-height: 90px;
-  position: relative;
 }
 .logo {
   transition: transform 0.3s ease;
   object-fit: contain;
+  position : relative;
 }
 
 .logo:hover {
   transform: scale(1.05);
 }
 
-.searchPlaceholder {
-  font-size: 1rem;
-  color: #333;
+
+.searchBox {
+  position: relative;
+  width: 16rem; /* w-64 */
 }
 
-.pokemonGrid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
+.searchBox input {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  border: none;
+  color: #1f2937; /* text-gray-800 */
+  outline: none;
+}
+
+.searchBox input:focus {
+  box-shadow: 0 0 0 2px #facc15; /* ring-yellow-300 */
 }

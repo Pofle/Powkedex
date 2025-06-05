@@ -14,21 +14,22 @@ export default function Home({pokemonDatas}: HomeProps) {
       <Head>
         <title>Powkedex</title>
       </Head>
-
       <main className={styles.main}>
-      <header className={styles.header}>
-        <div className={styles.logoContainer}>
-          <Image 
-            src="/images/logo.png"  
-            alt="Logo Powkedex"
-            fill 
-            className={styles.logo}
-          />
-        </div>
-        <div className={styles.searchPlaceholder}>
-          <p>Recherche</p>
-        </div>
-      </header>
+        <header className={styles.header}>
+          <div className={styles.container}>
+            <div className={styles.logoContainer}>
+              <Image 
+                src="/images/logo.png"  
+                alt="Logo Powkedex"
+                fill 
+                className={styles.logo}
+              />
+            </div>
+            <div className={styles.searchBox}>
+            <input type="text" ></input>
+          </div>
+          </div>
+        </header>
 
       <section className={styles.pokemonGrid}>
           {pokemonDatas.map((pokemon) => (
