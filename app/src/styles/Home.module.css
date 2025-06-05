@@ -27,3 +27,10 @@
   font-size: 1rem;
   color: #333;
 }
+
+.pokemonGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
