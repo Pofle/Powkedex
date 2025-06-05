@@ -20,7 +20,18 @@ services:
     restart: always
     networks:
       - nginxpm
-      
+    
+    # Test to activate following changes when developping
+    develop:
+      watch:
+        - action: sync
+          path: ./app
+          target: /app
+          ignore:
+            - node_modules/
+            - .next/
+        - action: rebuild
+          path: ./app/package.json
 # Define a network, which allows containers to communicate
 # with each other, by using their container name as a hostname
 networks:
