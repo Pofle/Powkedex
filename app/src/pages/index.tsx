@@ -10,11 +10,10 @@ type HomeProps = {
 };
 
 export default function Home({ pokemonDatas }: HomeProps) {
-  const [visibleCount, setVisibleCount] = useState(8); //  Afficher 8 au début
+  const [visibleCount, setVisibleCount] = useState(8); //  Display the 8 pokemons
   const handleLoadMore = () => {
-    setVisibleCount((prev) => prev + 8); // Ajouter 8 à chaque clic
+    setVisibleCount((loadedPokemons) => loadedPokemons + 8); // Add 8 each click
   };
-
 
   return (
     <div>
@@ -33,7 +32,7 @@ export default function Home({ pokemonDatas }: HomeProps) {
             <button
               onClick={handleLoadMore}
               className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-medium">
-                Load More Pokémons
+                Load More Pokemons
             </button>
           </div>
         )}
