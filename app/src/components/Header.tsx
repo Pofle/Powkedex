@@ -3,7 +3,7 @@ import Image from 'next/image';
 function Header(){
     return(
         <header className="bg-red-600 shadow-lg">
-            <div className="container mx-auto px-4 py-6">
+            <div className="container mx-auto">
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                     <Image
                         src="/images/logo.png"

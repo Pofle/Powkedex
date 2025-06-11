@@ -2,7 +2,7 @@
 export type PokemonDatas = {
   id: number;
   name: string;
-  order: number;
+  //order: number;
   weight: number;
   height: number;
   image: string;

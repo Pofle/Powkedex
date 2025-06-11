@@ -22,6 +22,11 @@ export default function Home({ pokemonDatas }: HomeProps) {
             <PokemonCard key={pokemon.id} {...pokemon} />
           ))}
         </section>
+        <div className="mt-8 text-center">
+            <button id="loadMore" class="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-medium">
+                Load More Pokémons
+            </button>
+          </div>
       </main>
     </div>
   );

@@ -16,7 +16,7 @@ export type PokemonCardProps = {
 export default function PokemonCard({
   id,
   name,
-  order,
+  //order,
   weight,
   height,
   image,
@@ -27,7 +27,7 @@ export default function PokemonCard({
       {/* Image + numéro */}
       <div className="relative h-48 bg-gray-100 flex items-center justify-center">
         <span className="absolute top-3 right-3 text-gray-400 font-bold text-sm">
-          #{order.toString().padStart(3, "0")}
+          #{id.toString().padStart(3, "0")}
         </span>
         <Image
           src={image}
@@ -36,23 +36,22 @@ export default function PokemonCard({
           height={150}
           className="h-40 object-contain"
         />
-      </div>
-      {/* Types */}
-      <div className="flex flex-wrap gap-2 mt-2">
-        {types.map((type) => (
-        <span
-          key={type}
-          className={`text-white capitalize text-sm font-semibold px-3 py-1 rounded-full ${getTypeColor(type)}`}>
-          {type}
-        </span>
-        ))}
-      </div>
+      </div>   
       {/* Infos */}
       <div className="p-5">
         <h3 className="text-xl font-bold text-gray-800 capitalize mb-2">
           {name}
         </h3>
-        <div className="grid grid-cols-2 gap-4 text-sm text-gray-600 mb-3">
+        <div className="flex flex-wrap gap-2">
+          {types.map((type) => (
+          <span
+            key={type}
+            className={`text-white capitalize text-sm font-semibold px-3 py-1 rounded-full ${getTypeColor(type)}`}>
+            {type}
+          </span>
+          ))}
+        </div>
+        <div className="grid grid-cols-2 gap-4 text-sm text-gray-600 my-3">
           <div>
             <p className="font-bold">Height</p>
             <p>{height} m</p>
