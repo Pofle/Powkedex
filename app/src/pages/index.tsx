@@ -1,38 +1,34 @@
 import Head from "next/head";
-import styles from '../styles/Home.module.css';
-import Header from '../components/Header';
-import PokemonCard from '../components/PokemonCard';
-import { fetchPokemonList, PokemonDatas } from '../api/pokemonApi';
-/*Here you specify that Home_component will receive a pokemonDatas prop, which is an array of Pokémon. */
-type HomeProps =  {
-  pokemonDatas: PokemonDatas[];
-}
+import Header from "../components/Header";
+import PokemonCard from "../components/PokemonCard";
+import { getPokemonList, PokemonDatas } from "../api/pokemonApi";
 
-export default function Home({pokemonDatas}: HomeProps) {
+type HomeProps = {
+  pokemonDatas: PokemonDatas[];
+};
+
+export default function Home({ pokemonDatas }: HomeProps) {
   return (
     <div>
       <Head>
         <title>Powkedex</title>
       </Head>
-      <main className={styles.main}>
-        <Header/>
 
-      <section className={styles.pokemonGrid}>
+      <main>
+        <Header />
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
           {pokemonDatas.map((pokemon) => (
-             <PokemonCard
-                key={pokemon.id}
-                name={pokemon.name}
-                order={pokemon.order}
-                weight={pokemon.weight}/>
+            <PokemonCard key={pokemon.id} {...pokemon} />
           ))}
-        </section>
-    </main>
-    </div>     
+        </div>
+      </main>
+    </div>
   );
-  
-}export async function getStaticProps() {
-  const pokemonDatas = await fetchPokemonList(1302);
+}
 
+export async function getStaticProps() {
+  const pokemonDatas = await getPokemonList(1302);
   return {
     props: {
       pokemonDatas,
