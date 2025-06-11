@@ -1,9 +1,15 @@
 import Image from 'next/image';
 
-function Header(){
+// Set the Header component props
+type HeaderProps = {
+  searchTerm: string;
+  onSearchChange: (value: string) => void;
+};
+
+function Header({searchTerm, onSearchChange}: HeaderProps){
     return(
         <header className="bg-red-600 shadow-lg">
-            <div className="container mx-auto px-4 py-6">
+            <div className="container mx-auto">
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                     <Image
                         src="/images/logo.png"
@@ -12,11 +18,13 @@ function Header(){
                         height={500}
                         className="max-w-[300px] h-auto mx-auto sm:mx-0"
                     />
-                    <div className="relative w-full sm:w-64">
+                    <div className="relative w-full mb-1 mx-2 sm:w-64">
                         <input
                             type="text"
                             placeholder="Search Pokemon..."
                             className="w-full py-2 px-4 rounded-full text-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-300 bg-red-50"
+                            value={searchTerm}
+                            onChange={(e) => onSearchChange(e.target.value)}                   
                         />
                         <button className="absolute right-2 top-2 text-gray-500">
                             <Image
