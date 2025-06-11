@@ -17,11 +17,11 @@ export default function Home({ pokemonDatas }: HomeProps) {
       <main>
         <Header />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
+        <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6 mx-4">
           {pokemonDatas.map((pokemon) => (
             <PokemonCard key={pokemon.id} {...pokemon} />
           ))}
-        </div>
+        </section>
       </main>
     </div>
   );
