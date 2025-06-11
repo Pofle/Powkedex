@@ -1,32 +1,42 @@
+import { useState } from "react";
 import Head from "next/head";
 import Header from "../components/Header";
 import PokemonCard from "../components/PokemonCard";
 import { getPokemonList, PokemonDatas } from "../api/pokemonApi";
 
+// Set to the home component the props
 type HomeProps = {
   pokemonDatas: PokemonDatas[];
 };
 
 export default function Home({ pokemonDatas }: HomeProps) {
+  const [visibleCount, setVisibleCount] = useState(8); //  Afficher 8 au début
+  const handleLoadMore = () => {
+    setVisibleCount((prev) => prev + 8); // Ajouter 8 à chaque clic
+  };
+
+
   return (
     <div>
       <Head>
         <title>Powkedex</title>
       </Head>
-
       <main>
         <Header />
-
         <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6 mx-4">
-          {pokemonDatas.map((pokemon) => (
+          {pokemonDatas.slice(0, visibleCount).map((pokemon) => (
             <PokemonCard key={pokemon.id} {...pokemon} />
           ))}
         </section>
-        <div className="mt-8 text-center">
-            <button id="loadMore" class="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-medium">
+        {visibleCount < pokemonDatas.length && (
+          <div className="mt-8 text-center">
+            <button
+              onClick={handleLoadMore}
+              className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-medium">
                 Load More Pokémons
             </button>
           </div>
+        )}
       </main>
     </div>
   );

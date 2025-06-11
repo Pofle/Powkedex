@@ -1,27 +1,18 @@
 import Image from "next/image";
 import React from "react";
 import { getTypeColor} from "../api/utils";
+import  {PokemonDatas } from "../api/pokemonAPI";
 
-export type PokemonCardProps = {
-  id: number;
-  key: number
-  name: string;
-  order: number;
-  weight: number;
-  height: number;
-  image: string;
-  types : string[];
-};
-
+// Function to create component with props = pokemon datas
 export default function PokemonCard({
   id,
+  //key,
   name,
-  //order,
   weight,
   height,
   image,
   types,
-}: PokemonCardProps) {
+}: PokemonDatas) {
   return (
     <div className="rounded-lg shadow-md overflow-hidden bg-white hover:shadow-lg transition duration-200">
       {/* Image + numéro */}

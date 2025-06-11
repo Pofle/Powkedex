@@ -1,8 +1,8 @@
 /* export set this type importable in the app : (import { PokemonDatas } from ...)*/
 export type PokemonDatas = {
   id: number;
+  key: number;
   name: string;
-  //order: number;
   weight: number;
   height: number;
   image: string;
@@ -39,7 +39,7 @@ export async function getPokemonList(limit: number): Promise<PokemonDatas[]> {
   console.log('3 premiers Pokémon détaillés :', pokemonDatas.slice(0, 4));
 
   //pokemonDatas.sort((a, b) => a.order - b.order);
-  return pokemonDatas.slice(0, 8);
+  return pokemonDatas;
 }
 
 /* GET pokemon image */
