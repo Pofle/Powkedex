@@ -36,7 +36,7 @@ export async function getPokemonList(limit: number): Promise<PokemonDatas[]> {
   );
 
   // FOR TESTING
-  console.log('3 premiers Pokémon détaillés :', pokemonDatas.slice(0, 4));
+  //console.log('3 premiers Pokémon détaillés :', pokemonDatas.slice(0, 4));
 
   //pokemonDatas.sort((a, b) => a.order - b.order);
   return pokemonDatas;

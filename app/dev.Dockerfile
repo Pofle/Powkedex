@@ -13,19 +13,17 @@ RUN \
   # Allow install without lockfile, so example works even without Node.js installed locally
   else echo "!! Warning: Lockfile not found. It is recommended to commit lockfiles to version control." && yarn install; \
   fi
-#Command to install TailwindCSS in docker
-RUN npm install tailwindcss @tailwindcss/postcss postcss
 
+# Install TailwindCSS and Font Awesome for react
+RUN npm install tailwindcss @tailwindcss/postcss postcss \
+    && npm install @fortawesome/fontawesome-svg-core @fortawesome/free-brands-svg-icons @fortawesome/react-fontawesome
 
-COPY src ./src
-COPY public ./public
-COPY next.config.js .
-COPY tsconfig.json .
-COPY postcss.config.mjs .
-
-# Next.js collects completely anonymous telemetry data about general usage. Learn more here: https://nextjs.org/telemetry
-# Uncomment the following line to disable telemetry at run time
-# ENV NEXT_TELEMETRY_DISABLED 1
+COPY . .
+#COPY src ./src
+#COPY public ./public
+#COPY next.config.js .
+#COPY tsconfig.json .
+#COPY postcss.config.mjs .
 
 # Note: Don't expose ports here, Compose will handle that for us
 
