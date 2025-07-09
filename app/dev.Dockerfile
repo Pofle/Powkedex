@@ -13,13 +13,10 @@ RUN \
   # Allow install without lockfile, so example works even without Node.js installed locally
   else echo "!! Warning: Lockfile not found. It is recommended to commit lockfiles to version control." && yarn install; \
   fi
-#Command to install TailwindCSS in docker
-#RUN npm install tailwindcss @tailwindcss/postcss postcss
+
 # Install TailwindCSS and Font Awesome for react
 RUN npm install tailwindcss @tailwindcss/postcss postcss \
     && npm install @fortawesome/fontawesome-svg-core @fortawesome/free-brands-svg-icons @fortawesome/react-fontawesome
-
-
 
 COPY . .
 #COPY src ./src

@@ -2,15 +2,12 @@
 const nextConfig = {
   output: "standalone",
   images: {
-    domains: ['raw.githubusercontent.com'],
-  },
-  //Ici la config pour le hotload
-  webpackDevMiddleware: config => {
-    config.watchOptions = {
-      poll: 1000,
-      aggregateTimeout: 300,
-    };
-    return config;
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'raw.githubusercontent.com',
+      },
+    ],
   },
 };
 

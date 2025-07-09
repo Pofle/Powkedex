@@ -13,7 +13,7 @@ function Footer(){
                         <FontAwesomeIcon icon={faLinkedin} className="text-xl text-gray-300 hover:text-white transition" />
                     </a>
                 </div>
-                <p class="text-gray-400">© 2023 PokéDex Project. Not affiliated with Nintendo or The Pokémon Company.</p>
+                <p className="text-gray-400">© 2023 PokéDex Project. Not affiliated with Nintendo or The Pokémon Company.</p>
             </div>
         </footer>
 

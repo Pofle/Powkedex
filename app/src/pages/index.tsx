@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Head from "next/head";
-import Header from "../components/Header";
-import PokemonCard from "../components/PokemonCard";
-import Footer from "../components/Footer";
+import Header from "@/components/Header";
+import PokemonCard from "@/components/PokemonCard";
+import Footer from "@/components/Footer";
 import { getPokemonList, PokemonDatas } from "../api/pokemonApi";
 
 // Set to the home component the props
