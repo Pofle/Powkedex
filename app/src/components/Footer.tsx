@@ -7,7 +7,7 @@ function Footer(){
                     <a href="https://github.com/Pofle/Powkedex" className="text-gray-300 hover:text-white transition"><i className="fab fa-github fa-lg"></i></a>
                     <a href="https://www.linkedin.com/in/pauline-fleury-desirade/" className="text-gray-300 hover:text-white transition"><i className="fab fa-linkedin fa-lg"></i></a>
                 </div>
-                <p class="text-gray-400">© 2023 PokéDex Project. Not affiliated with Nintendo or The Pokémon Company TEST.</p>
+                <p class="text-gray-400">© 2023 PokéDex Project. Not affiliated with Nintendo or The Pokémon Company.</p>
             </div>
         </footer>
 
