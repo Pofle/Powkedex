@@ -16,16 +16,12 @@ RUN \
 #Command to install TailwindCSS in docker
 RUN npm install tailwindcss @tailwindcss/postcss postcss
 
-
-COPY src ./src
-COPY public ./public
-COPY next.config.js .
-COPY tsconfig.json .
-COPY postcss.config.mjs .
-
-# Next.js collects completely anonymous telemetry data about general usage. Learn more here: https://nextjs.org/telemetry
-# Uncomment the following line to disable telemetry at run time
-# ENV NEXT_TELEMETRY_DISABLED 1
+COPY . .
+#COPY src ./src
+#COPY public ./public
+#COPY next.config.js .
+#COPY tsconfig.json .
+#COPY postcss.config.mjs .
 
 # Note: Don't expose ports here, Compose will handle that for us
 
