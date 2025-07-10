@@ -2,6 +2,9 @@
 
 FROM node:18-alpine
 
+# Instal  OpenSSL and libs for prisma which is not in the image
+RUN apk add --no-cache openssl
+
 WORKDIR /app
 
 # Install dependencies based on the preferred package manager
