@@ -18,12 +18,20 @@ RUN \
 RUN npm install tailwindcss @tailwindcss/postcss postcss \
     && npm install @fortawesome/fontawesome-svg-core @fortawesome/free-brands-svg-icons @fortawesome/react-fontawesome
 
+# Install Prisma and PostgreSQL client
+RUN npm install prisma @prisma/client
+
 COPY . .
 #COPY src ./src
 #COPY public ./public
 #COPY next.config.js .
 #COPY tsconfig.json .
 #COPY postcss.config.mjs .
+
+# Generate Prisma client
+RUN npx prisma generate
+# Generate Prisma client only if schema exists
+#RUN if [ -f prisma/schema.prisma ]; then npx prisma generate; fi
 
 # Note: Don't expose ports here, Compose will handle that for us
 
