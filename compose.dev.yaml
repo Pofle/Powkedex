@@ -12,8 +12,7 @@ services:
       NEXT_PUBLIC_ENV_VARIABLE: ${NEXT_PUBLIC_ENV_VARIABLE}
       DATABASE_URL: "postgresql://admin:poke@postgres:5432/pokedex?schema=public" #Set the DB url   
     env_file: # Set environment variables based on the .env file
-      - .env
-   
+      - .env 
     volumes:
        - ./app/src:/app/src
        - ./app/public:/app/public
@@ -21,6 +20,8 @@ services:
        - /app/node_modules  # Monte dossier vide pour ignorer les node_modules du host
     ports:
       - "3000:3000"
+    depends_on:
+      - postgres
     restart: always
     networks:
       - nginxpm
@@ -41,7 +42,7 @@ services:
     networks:
       - nginxpm
   
-   # pgAdmin for web-based PostgreSQL interface
+   # PGAdmin for web-based PostgreSQL interface
   pgadmin:
     image: dpage/pgadmin4
     container_name: pgadmin
@@ -52,12 +53,16 @@ services:
       - "5050:80"
     depends_on:
       - postgres
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin #Set persisting PG configureation
     restart: always
     networks:
       - nginxpm
 
+# Define named volume (explicitly)
 volumes:
   postgres_data:
+    name: pokedex_postgres_data
 
 # Define a network, which allows containers to communicate
 # with each other, by using their container name as a hostname
