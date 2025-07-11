@@ -63,6 +63,7 @@ services:
 volumes:
   postgres_data:
     name: pokedex_postgres_data
+  pgadmin_data:
 
 # Define a network, which allows containers to communicate
 # with each other, by using their container name as a hostname

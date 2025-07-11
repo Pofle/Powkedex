@@ -7,8 +7,10 @@ RUN apk add --no-cache openssl
 
 WORKDIR /app
 
-# Install dependencies based on the preferred package manager
+# Copy gestion files of depencies
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* .npmrc* ./
+
+# Install dependencies depend on file manager dependencies
 RUN \
   if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
   elif [ -f package-lock.json ]; then npm ci; \
@@ -25,23 +27,17 @@ RUN npm install tailwindcss @tailwindcss/postcss postcss \
 RUN npm install prisma @prisma/client
 
 COPY . .
-#COPY src ./src
-#COPY public ./public
-#COPY next.config.js .
-#COPY tsconfig.json .
-#COPY postcss.config.mjs .
 
 # Generate Prisma client
-RUN npx prisma generate
+#RUN npx prisma generate -> in script
 # Generate Prisma client only if schema exists
 #RUN if [ -f prisma/schema.prisma ]; then npx prisma generate; fi
 
+# Copy script init.sh in /app/init.sh and set it executable
+COPY init.sh /app/init.sh
+RUN chmod +x /app/init.sh
+
 # Note: Don't expose ports here, Compose will handle that for us
 
-# Start Next.js in development mode based on the preferred package manager
-CMD \
-  if [ -f yarn.lock ]; then yarn dev; \
-  elif [ -f package-lock.json ]; then npm run dev; \
-  elif [ -f pnpm-lock.yaml ]; then pnpm dev; \
-  else npm run dev; \
-  fi
+# Start script when container is run
+CMD ["/app/init.sh"]
