@@ -14,8 +14,8 @@ services:
     env_file: # Set environment variables based on the .env file
       - .env 
     volumes:
-       - ./app/src:/app/src
-       - ./app/public:/app/public
+       - ./app/src:/app/src #Permet le hot reload de src
+       - ./app/public:/app/public #Permet le hot reload des assets
        - ./app/prisma:/app/prisma 
        - /app/node_modules  # Monte dossier vide pour ignorer les node_modules du host
     ports:
@@ -41,6 +41,12 @@ services:
     restart: always
     networks:
       - nginxpm
+    # Health check to be sure Postgr is ready
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d pokedex"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
   
    # PGAdmin for web-based PostgreSQL interface
   pgadmin:
