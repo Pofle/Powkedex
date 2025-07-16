@@ -10,6 +10,7 @@ export default function PokemonCard({
   weight,
   height,
   types,
+  image
 }: PokemonDatas) {
   return (
     <div className="rounded-lg shadow-md overflow-hidden bg-white hover:shadow-lg transition duration-200">
@@ -18,7 +19,13 @@ export default function PokemonCard({
         <span className="absolute top-3 right-3 text-gray-400 font-bold text-sm">
           #{id.toString().padStart(3, "0")}
         </span>
-        {/* Tu peux rajouter l'image ici plus tard */}
+        <Image
+          src={image}
+          alt={`Image of ${name}`}
+          width={150}
+          height={150}
+          className="h-40 object-contain"
+        />
       </div>   
       {/* Infos */}
       <div className="p-5">

@@ -7,16 +7,18 @@ export type PokemonDatas = {
   name: string;
   weight: number;
   height: number;
+  image: string;
   types: { name: string; color: string }[];
 };
 
-// Helper pour formater les données Pokémon
+// Helper to format datas
 function formatPokemon(pokemon: any): PokemonDatas {
   return {
     id: pokemon.pokemon_id,
     name: pokemon.name,
     weight: pokemon.weight,
     height: pokemon.height,
+    image: getPokemonImage(pokemon.pokemon_id),
     types: pokemon.pokemon_types.map((pt: any) => ({
       name: pt.type.name,
       color: pt.type.color,
@@ -24,7 +26,7 @@ function formatPokemon(pokemon: any): PokemonDatas {
   };
 }
 
-// Fonction principale pour récupérer la liste depuis la DB
+// Function to get pokemons
 export async function getPokemonList(limit: number = 150): Promise<PokemonDatas[]> {
   const pokemons = await prisma.pokemon.findMany({
     take: limit,
@@ -39,4 +41,9 @@ export async function getPokemonList(limit: number = 150): Promise<PokemonDatas[
   });
 
   return pokemons.map(formatPokemon);
+}
+
+/* GET pokemon image */
+export function getPokemonImage(id: number): string {
+  return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
 }
