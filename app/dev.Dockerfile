@@ -29,4 +29,4 @@ RUN chmod +x /app/init.sh
 # Note: Don't expose ports here, Compose will handle that for us
 
 # Start script when container is run
-CMD ["/app/init.sh"]
+CMD ["/app/scripts/init.sh"]
