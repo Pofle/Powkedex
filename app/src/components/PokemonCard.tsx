@@ -36,9 +36,8 @@ export default function PokemonCard({
           {types.map((type) => (
             <span
               key={type.name}
-              className="text-white capitalize text-sm font-semibold px-3 py-1 rounded-full"
-              style={{ backgroundColor: type.color }}
-            >
+              className={`text-white capitalize text-sm font-semibold px-3 py-1 rounded-full ${type.color}`}
+              >
               {type.name}
             </span>
           ))}

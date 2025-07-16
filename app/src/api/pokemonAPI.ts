@@ -26,7 +26,7 @@ function formatPokemon(pokemon: any): PokemonDatas {
   };
 }
 
-// Function to get pokemons
+// Function to GET pokemons
 export async function getPokemonList(limit: number = 150): Promise<PokemonDatas[]> {
   const pokemons = await prisma.pokemon.findMany({
     take: limit,
