@@ -1,6 +1,5 @@
 import Image from "next/image";
 import React from "react";
-import { getTypeColor} from "../api/utils";
 import  {PokemonDatas } from "../api/pokemonAPI";
 
 // Function to create component with props = pokemon datas
@@ -10,7 +9,6 @@ export default function PokemonCard({
   name,
   weight,
   height,
-  image,
   types,
 }: PokemonDatas) {
   return (
@@ -20,26 +18,22 @@ export default function PokemonCard({
         <span className="absolute top-3 right-3 text-gray-400 font-bold text-sm">
           #{id.toString().padStart(3, "0")}
         </span>
-        <Image
-          src={image}
-          alt={`Image of ${name}`}
-          width={150}
-          height={150}
-          className="h-40 object-contain"
-        />
+        {/* Tu peux rajouter l'image ici plus tard */}
       </div>   
       {/* Infos */}
       <div className="p-5">
         <h3 className="text-xl font-bold text-gray-800 capitalize mb-2">
           {name}
         </h3>
-        <div className="flex flex-wrap gap-2">
+         <div className="flex flex-wrap gap-2">
           {types.map((type) => (
-          <span
-            key={type}
-            className={`text-white capitalize text-sm font-semibold px-3 py-1 rounded-full ${getTypeColor(type)}`}>
-            {type}
-          </span>
+            <span
+              key={type.name}
+              className="text-white capitalize text-sm font-semibold px-3 py-1 rounded-full"
+              style={{ backgroundColor: type.color }}
+            >
+              {type.name}
+            </span>
           ))}
         </div>
         <div className="grid grid-cols-2 gap-4 text-sm text-gray-600 my-3">

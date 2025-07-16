@@ -13,8 +13,8 @@ datasource db {
 model Pokemon {
   pokemon_id    Int           @id @default(autoincrement())
   name          String        @unique
-  weight        Int
-  height        Int
+  weight        Float
+  height        Float
   
   // Relation many-to-many avec Type
   pokemon_types PokemonType[]

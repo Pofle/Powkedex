@@ -1,10 +1,10 @@
 export {}; // Ensures this file is treated as a module (required when using --isolatedModules)
 
-import dotenv from 'dotenv';
-import path from 'path';
+// import dotenv from 'dotenv';
+// import path from 'path';
 
-// Explicitly load the .env file from two directories above (to access DATABASE_URL, etc.)
-dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+// // Explicitly load the .env file from two directories above (to access DATABASE_URL, etc.)
+// dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
 import { PrismaClient } from '@prisma/client';
 
@@ -40,14 +40,25 @@ async function main() {
     );
 
     // Create the Pokémon in the database with its basic info and associated types
-    await prisma.pokemon.create({
-      data: {
-        name: details.name,
-        weight: Math.floor(details.weight / 10), // Convert weight to kg
-        height: Math.floor(details.height / 10), // Convert height to meters
+     await prisma.pokemon.upsert({
+      where: { name: details.name },
+      update: {
+        weight: details.weight / 10,
+        height: details.height / 10,
         pokemon_types: {
-          create: typeRecords.map((type) => ({
-            type: { connect: { type_id: type.type_id } }, // Link the Pokémon to its types
+          deleteMany: {},
+          create: typeRecords.map(type => ({
+            type: { connect: { type_id: type.type_id } },
+          })),
+        },
+      },
+      create: {
+        name: details.name,
+        weight: details.weight / 10,
+        height: details.height / 10,
+        pokemon_types: {
+          create: typeRecords.map(type => ({
+            type: { connect: { type_id: type.type_id } },
           })),
         },
       },
@@ -64,24 +75,30 @@ async function main() {
 // Returns a hex color code for each Pokémon type
 function getColorForType(type: string): string {
   const colors: { [key: string]: string } = {
-    fire: '#F08030',
-    water: '#6890F0',
-    grass: '#78C850',
-    electric: '#F8D030',
-    ice: '#98D8D8',
-    fighting: '#C03028',
-    poison: '#A040A0',
-    ground: '#E0C068',
-    flying: '#A890F0',
-    psychic: '#F85888',
-    bug: '#A8B820',
-    rock: '#B8A038',
-    ghost: '#705898',
-    dragon: '#7038F8',
-    dark: '#705848',
-    steel: '#B8B8D0',
-    fairy: '#EE99AC',
-    normal: '#A8A878',
+    normal: "bg-gray-400",
+    fire: "bg-red-500",
+    water: "bg-blue-500",
+    electric: "bg-yellow-400",
+    grass: "bg-green-500",
+    ice: "bg-blue-200",
+    fighting: "bg-red-700",
+    poison: "bg-purple-500",
+    ground: "bg-yellow-700",
+    flying: "bg-indigo-300",
+    psychic: "bg-pink-500",
+    bug: "bg-lime-500",
+    rock: "bg-yellow-800",
+    ghost: "bg-indigo-700",
+    dragon: "bg-indigo-900",
+    dark: "bg-gray-800",
+    steel: "bg-gray-500",
+    fairy: "bg-pink-300",
   };
-  return colors[type] || '#A8A878'; // Fallback to normal type color
+  return colors[type] || 'bg-gray-300'; // Fallback to normal type color
 }
+
+main()
+  .catch(e => {
+    console.error(e);
+    process.exit(1);
+  });

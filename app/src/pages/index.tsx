@@ -5,27 +5,25 @@ import PokemonCard from "@/components/PokemonCard";
 import Footer from "@/components/Footer";
 import { getPokemonList, PokemonDatas } from "../api/pokemonAPI";
 
-// Set to the home component the props
 type HomeProps = {
   pokemonDatas: PokemonDatas[];
 };
 
 export default function Home({ pokemonDatas }: HomeProps) {
-  const [visibleCount, setVisibleCount] = useState(8); //  Display the 8 pokemons
-  const [searchTerm, setSearchTerm] = useState(""); // Set an empty string state for search button
-  const handleLoadMore = () => {
-    setVisibleCount((loadedPokemons) => loadedPokemons + 8); // Add 8 each click
-  };
-  //const remainingPokemons = filteredPokemons.length - visibleCount;
-  const handleLoadAll = () => {
-    setVisibleCount(filteredPokemons.length);
-  };
-  
-  
-  // Filter pokemon by typing in research 
+  const [visibleCount, setVisibleCount] = useState(8);
+  const [searchTerm, setSearchTerm] = useState("");
+
   const filteredPokemons = pokemonDatas.filter((pokemon) =>
     pokemon.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const handleLoadMore = () => {
+    setVisibleCount((prev) => prev + 8);
+  };
+
+  const handleLoadAll = () => {
+    setVisibleCount(filteredPokemons.length);
+  };
 
   return (
     <div>
@@ -39,30 +37,35 @@ export default function Home({ pokemonDatas }: HomeProps) {
             <PokemonCard key={pokemon.id} {...pokemon} />
           ))}
         </section>
-        {visibleCount < pokemonDatas.length && (
+        {visibleCount < filteredPokemons.length && (
           <div className="mt-8 text-center">
             <button
               onClick={handleLoadMore}
-              className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-medium">
-                Load More Pokemons ({filteredPokemons.length - visibleCount})
+              className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-medium"
+            >
+              Load More Pokemons ({filteredPokemons.length - visibleCount})
             </button>
             <button
               onClick={handleLoadAll}
-              className="px-6 py-3 bg-white text-red-600 border border-red-600 rounded-lg hover:bg-red-100 transition font-medium ml-4">
+              className="px-6 py-3 bg-white text-red-600 border border-red-600 rounded-lg hover:bg-red-100 transition font-medium ml-4"
+            >
               Load All
             </button>
           </div>
         )}
-        <Footer/>
+        <Footer />
       </main>
     </div>
   );
 }
+
+// Chargement des données côté serveur (build time)
 export async function getStaticProps() {
   const pokemonDatas = await getPokemonList(1302);
   return {
     props: {
       pokemonDatas,
     },
+    revalidate: 60, // (optionnel) pour ISR : régénérer toutes les 60 secondes
   };
 }
