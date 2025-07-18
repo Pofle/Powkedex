@@ -1,11 +1,5 @@
 export {}; // Ensures this file is treated as a module (required when using --isolatedModules)
 
-// import dotenv from 'dotenv';
-// import path from 'path';
-
-// // Explicitly load the .env file from two directories above (to access DATABASE_URL, etc.)
-// dotenv.config({ path: path.resolve(__dirname, '../../.env') });
-
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient(); // Initialize Prisma Client to interact with the database

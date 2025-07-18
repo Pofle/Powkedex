@@ -6,10 +6,7 @@ services:
       context: ./app
       dockerfile: dev.Dockerfile 
     environment: # Set environment variables
-      CHOKIDAR_USEPOLLING: "true"   # Activates Hot reload
-      # ENV_VARIABLE: ${ENV_VARIABLE}
-      # NEXT_PUBLIC_ENV_VARIABLE: ${NEXT_PUBLIC_ENV_VARIABLE}
-      # DATABASE_URL: ${DATABASE_URL} #Set the DB url   
+      CHOKIDAR_USEPOLLING: "true"   # Activates Hot reload   
     env_file: # Set environment variables based on the .env file
       - ./app/.env 
     volumes:
