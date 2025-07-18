@@ -18,7 +18,7 @@ services:
        - ./app/public:/app/public
        - /app/node_modules  # Ignore les node_modules du host pour éviter conflits !!!!!
     ports:
-      - "3000:3000"
+      - "3000:3000" #penser à commenter le port quand j'aurai lancé en proid, car c est gere avec proxy
     restart: always
     networks:
       - nginxpm

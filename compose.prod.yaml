@@ -1,19 +1,27 @@
 services:
   powkedex:
     container_name: powkedex
-    build:
+    # build a docker image from a context
+    build: 
       context: ./app
-      dockerfile: prod.Dockerfile
-      args:
-        ENV_VARIABLE: ${ENV_VARIABLE}
-        NEXT_PUBLIC_ENV_VARIABLE: ${NEXT_PUBLIC_ENV_VARIABLE}
+      dockerfile: dev.Dockerfile #Penser à le lier au bon dockerfile prod une fois mis a jour
+    # Set environment variables directly in the compose file
+    environment:
+      CHOKIDAR_USEPOLLING: "true"   # ⬅️ Permet le hot reload dans Docker
+      ENV_VARIABLE: ${ENV_VARIABLE}
+      NEXT_PUBLIC_ENV_VARIABLE: ${NEXT_PUBLIC_ENV_VARIABLE}
+    # Set environment variables based on the .env file
+    env_file:
+      - .env
+    volumes:
+       - ./app/src:/app/src
+       - ./app/public:/app/public
+       - /app/node_modules  # Ignore les node_modules du host pour éviter conflits !!!!!
+   # ports:
+      #- "3000:3000" #penser à commenter le port quand j'aurai lancé en proid, car c est gere avec proxy
     restart: always
-    ports:
-      - 3000:3000
     networks:
       - nginxpm
-
-  # Add more containers below (nginx, postgres, etc.)
 
 # Define a network, which allows containers to communicate
 # with each other, by using their container name as a hostname
