@@ -22,9 +22,13 @@ RUN \
 # Copy the rest of the application
 COPY . .
 
+# Copy explicitement le dossier scripts
+#COPY scripts/ ./scripts/
+
 RUN chmod +x /app/scripts/init.sh
 
 # Note: Don't expose ports here, Compose will handle that for us
+#RUN echo "=== Vérification init.sh ===" && ls -l /app/scripts/init.sh || echo "!! init.sh manquant !!"
 
 
 # Start script when container is run
