@@ -1,6 +1,5 @@
 import Image from "next/image";
 import React from "react";
-import { getTypeColor} from "../api/utils";
 import  {PokemonDatas } from "../api/pokemonAPI";
 
 // Function to create component with props = pokemon datas
@@ -10,8 +9,8 @@ export default function PokemonCard({
   name,
   weight,
   height,
-  image,
   types,
+  image
 }: PokemonDatas) {
   return (
     <div className="rounded-lg shadow-md overflow-hidden bg-white hover:shadow-lg transition duration-200">
@@ -33,13 +32,14 @@ export default function PokemonCard({
         <h3 className="text-xl font-bold text-gray-800 capitalize mb-2">
           {name}
         </h3>
-        <div className="flex flex-wrap gap-2">
+         <div className="flex flex-wrap gap-2">
           {types.map((type) => (
-          <span
-            key={type}
-            className={`text-white capitalize text-sm font-semibold px-3 py-1 rounded-full ${getTypeColor(type)}`}>
-            {type}
-          </span>
+            <span
+              key={type.name}
+              className={`text-white capitalize text-sm font-semibold px-3 py-1 rounded-full ${type.color}`}
+              >
+              {type.name}
+            </span>
           ))}
         </div>
         <div className="grid grid-cols-2 gap-4 text-sm text-gray-600 my-3">

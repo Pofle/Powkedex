@@ -1,0 +1,47 @@
+//This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Pokemon {
+  pokemon_id    Int           @id @default(autoincrement())
+  name          String        @unique
+  weight        Float
+  height        Float
+  
+  // Relation many-to-many avec Type
+  pokemon_types PokemonType[]
+
+  @@map("pokemon")
+}
+
+model Type {
+  type_id       Int           @id @default(autoincrement())
+  name          String        @unique
+  color         String
+  
+  // Relation many-to-many avec Pokemon
+  pokemon_types PokemonType[]
+
+  @@map("type")
+}
+
+// Table d'association pour la relation many-to-many
+model PokemonType {
+  pokemon_id    Int
+  type_id       Int
+  
+  // Relations
+  pokemon       Pokemon @relation(fields: [pokemon_id], references: [pokemon_id], onDelete: Cascade)
+  type          Type    @relation(fields: [type_id], references: [type_id], onDelete: Cascade)
+  
+  @@id([pokemon_id, type_id])
+  @@map("pokemon_type")
+}

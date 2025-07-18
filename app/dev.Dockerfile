@@ -2,35 +2,29 @@
 
 FROM node:18-alpine
 
+# Install OpenSSL and netcat for Prisma and health checks
+RUN apk add --no-cache openssl netcat-openbsd
+
 WORKDIR /app
 
-# Install dependencies based on the preferred package manager
+# Copy gestion files of depencies
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* .npmrc* ./
+
+# Install dependencies depend on file manager dependencies
 RUN \
   if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
   elif [ -f package-lock.json ]; then npm ci; \
   elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm i; \
-  # Allow install without lockfile, so example works even without Node.js installed locally
-  else echo "!! Warning: Lockfile not found. It is recommended to commit lockfiles to version control." && yarn install; \
+  # Allow install without lockfile, so example works even without Node.js installed locally AND npm install dependencies
+  else echo "!! Warning: Lockfile not found. It is recommended to commit lockfiles to version control." && npm install; \
   fi
 
-# Install TailwindCSS and Font Awesome for react
-RUN npm install tailwindcss @tailwindcss/postcss postcss \
-    && npm install @fortawesome/fontawesome-svg-core @fortawesome/free-brands-svg-icons @fortawesome/react-fontawesome
-
+# Copy the rest of the application
 COPY . .
-#COPY src ./src
-#COPY public ./public
-#COPY next.config.js .
-#COPY tsconfig.json .
-#COPY postcss.config.mjs .
+
+RUN chmod +x /app/scripts/init.sh
 
 # Note: Don't expose ports here, Compose will handle that for us
 
-# Start Next.js in development mode based on the preferred package manager
-CMD \
-  if [ -f yarn.lock ]; then yarn dev; \
-  elif [ -f package-lock.json ]; then npm run dev; \
-  elif [ -f pnpm-lock.yaml ]; then pnpm dev; \
-  else npm run dev; \
-  fi
+# Start script when container is run
+CMD ["/app/scripts/init.sh"]
