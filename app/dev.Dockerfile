@@ -22,9 +22,7 @@ RUN \
 # Copy the rest of the application
 COPY . .
 
-# Copy the rest of the application
-COPY init.sh /app/init.sh
-RUN chmod +x /app/init.sh
+RUN chmod +x /app/scripts/init.sh
 
 # Note: Don't expose ports here, Compose will handle that for us
 
